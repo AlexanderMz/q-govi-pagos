@@ -30,10 +30,15 @@
                   <div class="col-4 q-pt-lg">Company</div>
                   <div class="col-8">
                     <q-select
-                      v-model="loginData.company"
+                      v-model="loginData.CompanyDB"
                       :options="companies"
+                      option-label="u_DB"
+                      option-value="u_DB"
                       dense
+                      emit-value
+                      map-options
                       hide-hint
+                      @update:model-value="optionChange"
                     />
                   </div>
                 </div>
@@ -41,7 +46,7 @@
                   <div class="col-4 q-pt-lg">User ID</div>
                   <div class="col-8">
                     <q-input
-                      v-model="loginData.userId"
+                      v-model="loginData.UserName"
                       type="text"
                       dense
                       hide-hint
@@ -52,7 +57,7 @@
                   <div class="col-4 q-pt-lg">Password</div>
                   <div class="col-8">
                     <q-input
-                      v-model="loginData.password"
+                      v-model="loginData.Password"
                       type="password"
                       dense
                       hide-hint
@@ -83,6 +88,7 @@
 
 <script>
 import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
 import { reactive, toRefs, onMounted, computed } from "vue";
 
 export default {
@@ -90,24 +96,35 @@ export default {
 
   setup() {
     const store = useStore();
+    const router = useRouter()
     const pageData = reactive({
       servers: ["192.168.1.30:30015"],
       companies: computed(() => store.getters["auth/getCompanies"]),
-      server: "",
+      isLogged: computed(() => store.getters["auth/isLogged"]),
+      server: "192.168.1.30:30015",
       loginData: {
-        company: "",
-        userId: "",
-        password: "",
+        CompanyDB: "",
+        UserName: "",
+        Password: "",
       },
     });
 
-    const login = () => {
-      store.dispatch("auth/Login", pageData.loginData);
+    const login = async () => {
+      await store.dispatch("auth/Login", {...pageData.loginData});
+      if (pageData.isLogged) {
+        router.push('/')
+      }
     };
 
+    onMounted(() => {
+      store.dispatch("auth/GetCompanies")
+    })
     return {
       ...toRefs(pageData),
       login,
+      optionChange: (val) => {
+        console.log(val)
+      },
     };
   },
 };
