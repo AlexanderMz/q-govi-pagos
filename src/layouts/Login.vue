@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import { useQuasar } from "quasar";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 import { reactive, toRefs, onMounted, computed } from "vue";
@@ -95,8 +96,9 @@ export default {
   name: "Login",
 
   setup() {
+    const $q = useQuasar();
     const store = useStore();
-    const router = useRouter()
+    const router = useRouter();
     const pageData = reactive({
       servers: ["192.168.1.30:30015"],
       companies: computed(() => store.getters["auth/getCompanies"]),
@@ -110,20 +112,26 @@ export default {
     });
 
     const login = async () => {
-      await store.dispatch("auth/Login", {...pageData.loginData});
+      await store.dispatch("auth/Login", { ...pageData.loginData });
       if (pageData.isLogged) {
-        router.push('/')
+        $q.notify({
+          color: "green-4",
+          textColor: "white",
+          icon: "check",
+          message: "Bienvenido",
+        });
+        router.push("/");
       }
     };
 
     onMounted(() => {
-      store.dispatch("auth/GetCompanies")
-    })
+      store.dispatch("auth/GetCompanies");
+    });
     return {
       ...toRefs(pageData),
       login,
       optionChange: (val) => {
-        console.log(val)
+        console.log(val);
       },
     };
   },

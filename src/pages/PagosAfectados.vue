@@ -12,7 +12,7 @@
               dense
               hide-bottom-space
               hide-hint
-              v-model="codigo"
+              v-model="formulario.codigo"
               type="text"
             >
               <template v-slot:after>
@@ -28,7 +28,7 @@
               dense
               hide-bottom-space
               hide-hint
-              v-model="nombre"
+              v-model="formulario.nombre"
               type="text"
             />
           </div>
@@ -40,9 +40,11 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-const codigo = ref("");
-const nombre = ref("");
+import { ref, reactive } from "vue";
+const formulario = reactive({
+  codigo: "",
+  nombre: "",
+});
 </script>
 
 <style scoped>
