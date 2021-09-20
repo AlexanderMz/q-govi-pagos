@@ -5,7 +5,7 @@
         <div class="col">Pagos afectados</div>
       </q-bar>
       <q-card-section>
-        <div class="row">
+        <div class="row items-start">
           <div class="col-1">Codigo</div>
           <div class="col-2">
             <q-input
@@ -14,6 +14,7 @@
               hide-hint
               v-model="formulario.codigo"
               type="text"
+              outlined
             >
               <template v-slot:after>
                 <q-btn round dense flat icon="search" />
@@ -21,7 +22,7 @@
             </q-input>
           </div>
         </div>
-        <div class="row">
+        <div class="row items-start">
           <div class="col-1">Nombre</div>
           <div class="col-2">
             <q-input

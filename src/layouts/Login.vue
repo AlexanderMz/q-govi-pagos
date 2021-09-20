@@ -112,15 +112,29 @@ export default {
     });
 
     const login = async () => {
-      await store.dispatch("auth/Login", { ...pageData.loginData });
-      if (pageData.isLogged) {
+      try {
+        $q.loading.show({
+          message: "Iniciando sessión",
+        });
+        await store.dispatch("auth/Login", { ...pageData.loginData });
+        if (pageData.isLogged) {
+          $q.notify({
+            color: "green-4",
+            textColor: "white",
+            icon: "check",
+            message: "Bienvenido",
+          });
+          router.push("/");
+        }
+      } catch (error) {
         $q.notify({
-          color: "green-4",
+          color: "red-4",
           textColor: "white",
           icon: "check",
-          message: "Bienvenido",
+          message: error,
         });
-        router.push("/");
+      } finally {
+        $q.loading.hide();
       }
     };
 
