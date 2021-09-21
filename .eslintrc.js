@@ -23,7 +23,7 @@ module.exports = {
     // Uncomment any of the lines below to choose desired strictness,
     // but leave only one uncommented!
     // See https://eslint.vuejs.org/rules/#available-rules
-    'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)
+    'plugin:vue/vue3-recommended', // Priority A: Essential (Error Prevention)
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
@@ -58,6 +58,9 @@ module.exports = {
   // add your custom rules here
   rules: {
     'prefer-promise-reject-errors': 'off',
+    "import/prefer-default-export": "off",
+    "vue/require-default-prop": "off",
+
 
 
     // allow debugger during development only

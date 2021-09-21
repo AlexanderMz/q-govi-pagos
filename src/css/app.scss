@@ -1,12 +1,16 @@
 // app global css in SCSS form
-.q-field {
-    &--dense {
-        max-height: 25px !important;
-        .q-field__control, .q-field__marginal {
-            max-height: 25px !important;
-            input {
-                max-height: 25px !important;
-            }
-        }
-    }
+// .q-field {
+//     &--dense {
+//         max-height: 30px !important;
+//         .q-field__control, .q-field__marginal {
+//             max-height: 30px !important;
+//             input {
+//                 max-height: 30px !important;
+//             }
+//         }
+//     }
+// }
+
+body {
+    font-size: small;
 }
